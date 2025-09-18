@@ -24,7 +24,7 @@ import { useCart } from "@/context/CartContext"
 
 
 export default function CheckoutPage() {
-    const { cartDetails, setCartDetails } = useCart()
+    const { cartDetails, setCartDetails , getCartDetails } = useCart()
     const [action, formAction] = useActionState(handlePayment, addressFormState);
     const router = useRouter()
     const form = useForm<addressFormType>({ resolver: zodResolver(addressformSchema), defaultValues: { cartId: "", details: "", city: "", phone: "", paymentMethod: "cash" } });
@@ -47,6 +47,7 @@ export default function CheckoutPage() {
                     position: "top-center"
                 })
                 setCartDetails(null);
+                getCartDetails();
                 timeout = setTimeout(() => {
                     router.push(action.callbackUrl || "/allorders")
                 }, 2000);

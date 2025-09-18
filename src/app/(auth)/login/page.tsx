@@ -17,8 +17,12 @@ import { LoginFormPaylod, loginformSchema } from "@/schema/login.schema"
 import {signIn} from 'next-auth/react'
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useCart } from "@/context/CartContext"
+import { useWishlist } from "@/context/WishlistContext"
 
 export default function LoginForm() {
+              const { getWishlistDetails } = useWishlist();
+            const { getCartDetails}  = useCart()
 
 const router = useRouter()
 
@@ -26,8 +30,6 @@ const router = useRouter()
 const form =  useForm<LoginFormPaylod>({resolver:zodResolver(loginformSchema) , defaultValues:{email: "" , password: ""}});
 
 async function onSubmit(values:LoginFormPaylod) {
-  
-
 
   try {
     const res = await signIn('credentials' , {
@@ -43,6 +45,8 @@ async function onSubmit(values:LoginFormPaylod) {
       toast.success("Login Successfully",{
         position:"top-center"})
         router.push("/")
+        getCartDetails();
+          getWishlistDetails();
     }else{
       // show error
       toast.error(res?.error || "Somthing went wrong" ,{
