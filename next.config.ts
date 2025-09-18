@@ -12,9 +12,6 @@ const nextConfig: NextConfig = {
       ],
       dangerouslyAllowSVG: true,
    },
-
-
-   output:"export",
 };
 
 export default nextConfig;
