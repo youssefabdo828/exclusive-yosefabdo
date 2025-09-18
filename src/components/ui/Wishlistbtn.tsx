@@ -6,8 +6,11 @@ import { useTransition } from 'react'
 import { useWishlist } from '@/context/WishlistContext';
 import { Button } from '@/components/ui/button';
 import { addToWishlist } from '@/services/wishlist.service';
+type AddtocartbtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  productId: string;
+};
 
-export default function Wishlistbtn({ productId, className, ...props }: { productId: string ; className?: string}) {
+export default function Wishlistbtn({ productId, ...props }: AddtocartbtnProps) {
             const { getWishlistDetails } = useWishlist();
     const [isPending, startTransition] = useTransition();
 
